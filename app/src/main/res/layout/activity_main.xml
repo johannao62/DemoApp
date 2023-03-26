@@ -115,6 +115,7 @@
                 android:drawableEnd="@drawable/ic_login"
                 android:drawableTint="#fff"
                 android:fontFamily="@font/poppins_medium"
+                android:onClick="AutenticaUsuario"
                 android:text="Inicie Sesión" />
         </LinearLayout>
         <LinearLayout
