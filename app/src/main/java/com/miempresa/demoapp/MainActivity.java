@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private String claveCorrecta = "estaEs";
     private String usuarioCorrecto = "Jo@gmail.com";
 
-    String mensajeOk = "Sesión Iniciada Correctamente";
-
+    String mensajeOk = "Excelente, Haz Iniciado Sesión";
+    String mensajeError = "Error: Usuario o contraseña Incorrectos";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
             //Toast.makeText(this, "Bienvenido a la My App Android", Toast.LENGTH_LONG).show();
             toastCorrecto(mensajeOk);
         } else {
-            Toast.makeText(this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();
+            toastError(mensajeError);
         }
 
 
@@ -51,6 +52,19 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.custom_toast_ok,(ViewGroup) findViewById(R.id.ll_custom_toast_ok));
         TextView txtMensaje = view.findViewById(R.id.txtMensajeToast1);
+
+        txtMensaje.setText(msg);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL |Gravity.BOTTOM, 0, 200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(view);
+        toast.show();
+    }
+
+    public void toastError(String msg){
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.custom_toast_error,(ViewGroup) findViewById(R.id.ll_custom_toast_error));
+        TextView txtMensaje = view.findViewById(R.id.txtMensajeToast2);
 
         txtMensaje.setText(msg);
         Toast toast = new Toast(getApplicationContext());
