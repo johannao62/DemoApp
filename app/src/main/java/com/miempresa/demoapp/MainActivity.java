@@ -18,9 +18,11 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText usuario;
     private EditText clave;
+    private EditText edtMail, edtPassword;
     private String claveCorrecta = "estaEs";
     private String usuarioCorrecto = "Jo@gmail.com";
-    private EditText edtMail, edtPassword;
+    private TextView txtNuevoUsuario;
+
     private TextInputLayout txtInputUsuario, txtInputPassword;
     String mensajeOk = "Excelente, Haz Iniciado Sesión";
     String mensajeError = "Error: Usuario o contraseña Incorrectos";
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.edtPassword);
         txtInputUsuario = findViewById(R.id.txtInputUsuario);
         txtInputPassword = findViewById(R.id.txtInputPassword);
+        txtNuevoUsuario = findViewById(R.id.txtNuevoUsuario);
 
     }
 
