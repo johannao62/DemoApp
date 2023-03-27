@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         txtNuevoUsuario.setOnClickListener( vw -> {
         Intent i = new Intent(this, RegistroActivity.class);
         startActivity(i);
+        //overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
         });
 
     }
