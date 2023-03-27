@@ -75,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
             toastError("Por favor, complete todos los campos.");
         }
 
+        //Se genera el método para pasar a la Activity de Registro.
+        txtNuevoUsuario.setOnClickListener( vw -> {
+        Intent i = new Intent(this, RegistroActivity.class);
+        startActivity(i);
+        });
+
     }
 
     public void toastCorrecto(String msg){
