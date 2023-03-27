@@ -12,12 +12,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText usuario;
     private EditText clave;
     private String claveCorrecta = "estaEs";
     private String usuarioCorrecto = "Jo@gmail.com";
+    private EditText edtMail, edtPassword;
+    private TextInputLayout txtInputUsuario, txtInputPassword;
+
+
 
     String mensajeOk = "Excelente, Haz Iniciado Sesión";
     String mensajeError = "Error: Usuario o contraseña Incorrectos";
@@ -28,23 +34,30 @@ public class MainActivity extends AppCompatActivity {
 
         usuario = findViewById(R.id.edtMail);
         clave = findViewById(R.id.edtPassword);
+        edtMail = findViewById(R.id.edtMail);
+        edtPassword = findViewById(R.id.edtPassword);
+        txtInputUsuario = findViewById(R.id.txtInputUsuario);
+        txtInputPassword = findViewById(R.id.txtInputPassword);
 
     }
 
     public void AutenticaUsuario(View v){
 
-        if (usuario.getText().toString().equalsIgnoreCase(usuarioCorrecto)
-                && clave.getText().toString().equals(claveCorrecta)
-        ){
-            //Se muestra un mensaje emergente de bienvenida
-            //Toast.makeText(this, "Bienvenido a la My App Android", Toast.LENGTH_LONG).show();
-            toastCorrecto(mensajeOk);
-        } else {
-            //Toast.makeText(this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();
-            toastError(mensajeError);
+        if (validar()){
+            if (usuario.getText().toString().equalsIgnoreCase(usuarioCorrecto)
+                    && clave.getText().toString().equals(claveCorrecta)
+            ){
+                //Se muestra un mensaje emergente de bienvenida
+                //Toast.makeText(this, "Bienvenido a la My App Android", Toast.LENGTH_LONG).show();
+                toastCorrecto(mensajeOk);
+            } else {
+                //Toast.makeText(this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();
+                toastError(mensajeError);
+            }
+
+        }else {
+            toastError("Por favor, complete todos los campos.");
         }
-
-
 
     }
 
@@ -72,6 +85,26 @@ public class MainActivity extends AppCompatActivity {
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(view);
         toast.show();
+    }
+
+    private boolean validar() {
+        boolean retorno = true;
+        String user, passw;
+        user = edtMail.getText().toString();
+        passw = edtPassword.getText().toString();
+        if (user.isEmpty()) {
+            txtInputUsuario.setError("Ingrese su usario y/o correo electrónico");
+            retorno = false;
+        } else {
+            txtInputUsuario.setErrorEnabled(false);
+        }
+        if (passw.isEmpty()) {
+            txtInputPassword.setError("Ingrese su contraseña");
+            retorno = false;
+        } else {
+            txtInputPassword.setErrorEnabled(false);
+        }
+        return retorno;
     }
 
 }
