@@ -22,16 +22,15 @@ public class MainActivity extends AppCompatActivity {
     private String usuarioCorrecto = "Jo@gmail.com";
     private EditText edtMail, edtPassword;
     private TextInputLayout txtInputUsuario, txtInputPassword;
-
-
-
     String mensajeOk = "Excelente, Haz Iniciado Sesión";
     String mensajeError = "Error: Usuario o contraseña Incorrectos";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Se capturan los objetos de la interfaz gráfica
         usuario = findViewById(R.id.edtMail);
         clave = findViewById(R.id.edtPassword);
         edtMail = findViewById(R.id.edtMail);
@@ -43,25 +42,40 @@ public class MainActivity extends AppCompatActivity {
 
     public void AutenticaUsuario(View v){
 
+        //Metodo Attached al botón loguin, que genera la operación de loguin
+
         if (validar()){
+            //Mediante el método validar se revisa que los campos hayan sido ingresados correctamente.
             if (usuario.getText().toString().equalsIgnoreCase(usuarioCorrecto)
                     && clave.getText().toString().equals(claveCorrecta)
             ){
                 //Se muestra un mensaje emergente de bienvenida
                 //Toast.makeText(this, "Bienvenido a la My App Android", Toast.LENGTH_LONG).show();
                 toastCorrecto(mensajeOk);
+
+                //Se declara cual es la activity (pantalla) qué será invoncada.
+                Intent intAgenda = new Intent(this,Agenda.class);
+
+                //Se transfiere un dato hacia la activity destino
+                intAgenda.putExtra("usuario",usuario.getText().toString());
+
+                //Se invoca la Activity destino
+                startActivity(intAgenda);
+
             } else {
                 //Toast.makeText(this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();
                 toastError(mensajeError);
             }
 
         }else {
+            //Si la validación indica que algún campo está vacío, emite este mensaje
             toastError("Por favor, complete todos los campos.");
         }
 
     }
 
     public void toastCorrecto(String msg){
+        //Toast personalizado con color para mostrar el mensaje emergente de ingreso exitoso
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.custom_toast_ok,(ViewGroup) findViewById(R.id.ll_custom_toast_ok));
         TextView txtMensaje = view.findViewById(R.id.txtMensajeToast1);
@@ -75,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toastError(String msg){
+        //Toast personalizado con color para mostrar el mensaje emergente de Credenciales Inválidas
         LayoutInflater layoutInflater = getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.custom_toast_error,(ViewGroup) findViewById(R.id.ll_custom_toast_error));
         TextView txtMensaje = view.findViewById(R.id.txtMensajeToast2);
@@ -88,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean validar() {
+        //Validación de campos vacíos en el loguin
         boolean retorno = true;
         String user, passw;
         user = edtMail.getText().toString();
