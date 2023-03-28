@@ -149,7 +149,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Provincia"
+                        android:hint="Ciudad"
                         app:startIconDrawable="@drawable/ic_ubicacion">
 
                         <AutoCompleteTextView
