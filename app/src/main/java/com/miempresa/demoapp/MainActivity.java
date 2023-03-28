@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText edtMail, edtPassword;
     private String claveCorrecta = "estaEs";
     private String usuarioCorrecto = "Jo@gmail.com";
-    private TextView txtNuevoUsuario;
+    private TextView txtNuevoUsuario, txtOlvideContrasena;
 
     private TextInputLayout txtInputUsuario, txtInputPassword;
     String mensajeOk = "Excelente, Haz Iniciado Sesión";
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         txtInputUsuario = findViewById(R.id.txtInputUsuario);
         txtInputPassword = findViewById(R.id.txtInputPassword);
         txtNuevoUsuario = findViewById(R.id.txtNuevoUsuario);
+        txtOlvideContrasena = findViewById(R.id.txtOlvideContrasena);
 
     }
 
@@ -74,16 +75,29 @@ public class MainActivity extends AppCompatActivity {
             //Si la validación indica que algún campo está vacío, emite este mensaje
             toastError("Por favor, complete todos los campos.");
         }
+    }
 
+    public void RegistrarUsuario(View v){
         //Se genera el método para pasar a la Activity de Registro.
         txtNuevoUsuario.setOnClickListener( vw -> {
-        Intent i = new Intent(this, RegistroActivity.class);
-        startActivity(i);
-        //overridePendingTransition(R.anim.left_in, R.anim.left_out);
+            Intent i = new Intent(this, RegistroActivity.class);
+            startActivity(i);
+            //overridePendingTransition(R.anim.left_in, R.anim.left_out);
 
         });
-
     }
+
+    public void olvideMiContrasena(View v){
+        //Se genera el método para pasar a la Activity de Registro.
+        txtOlvideContrasena.setOnClickListener( vw -> {
+            Intent i = new Intent(this, OlvideContrasena.class);
+            startActivity(i);
+            //overridePendingTransition(R.anim.left_in, R.anim.left_out);
+
+        });
+    }
+
+
 
     public void toastCorrecto(String msg){
         //Toast personalizado con color para mostrar el mensaje emergente de ingreso exitoso
