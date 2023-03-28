@@ -274,22 +274,41 @@
                                     android:inputType="textPassword"
                                     android:textSize="15sp" />
 
-                                <Button
-                                    android:id="@+id/btnGuardarDatos"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="end"
-                                    android:layout_marginTop="5dp"
-                                    android:drawableEnd="@drawable/ic_save"
-                                    android:fontFamily="@font/san_francisco"
-                                    android:onClick="CargarFormulario"
-                                    android:text="Guardar Datos"
-                                    android:textColor="@color/white" />
-
                             </com.google.android.material.textfield.TextInputLayout>
 
 
                         </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnGuardarDatos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="5dp"
+                            android:drawableEnd="@drawable/ic_save"
+                            android:fontFamily="@font/san_francisco"
+                            android:onClick="CargarFormulario"
+                            android:text="Guardar Datos"
+                            android:textColor="@color/white" />
+
+                        <Button
+                            android:id="@+id/button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginStart="35dp"
+                            android:layout_marginTop="5dp"
+                            android:drawableEnd="@drawable/ic_volver_atras"
+                            android:fontFamily="@font/san_francisco"
+                            android:onClick="RegresarAMain"
+                            android:text="Regresar"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
 

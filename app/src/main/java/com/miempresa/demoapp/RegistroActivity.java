@@ -2,6 +2,7 @@ package com.miempresa.demoapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -51,4 +52,12 @@ public class RegistroActivity extends AppCompatActivity {
         float num2=0f;
         System.out.println("Se ingresa a cargar formulario");
     }
+
+    public void RegresarAMain(View v){
+        //Se declara la pantalla o Activity, que se va a invocar:
+        Intent intActPpal = new Intent(this, MainActivity.class); //Se invoca la actividad
+        startActivity(intActPpal);
+
+    }
+
 }
