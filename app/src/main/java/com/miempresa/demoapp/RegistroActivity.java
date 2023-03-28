@@ -77,12 +77,12 @@ public class RegistroActivity extends AppCompatActivity {
         dropdownTipoDoc.setAdapter(AdaptadorTipoDoc);
 
         //Adaptador para conectarse al spinner Departamentos
-        ArrayAdapter<String> AdaptadorDepartamentos = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayCiudad);
-        dropdownProvincia.setAdapter(AdaptadorDepartamentos);
+        ArrayAdapter<String> AdaptadorDepartamentos = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayDepartamentos);
+        dropdownDepartamento.setAdapter(AdaptadorDepartamentos);
 
         //Adaptador para conectarse al spinner Ciudad
-        ArrayAdapter<String> AdaptadorCiudad = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayDepartamentos);
-        dropdownDepartamento.setAdapter(AdaptadorDepartamentos);
+        ArrayAdapter<String> AdaptadorCiudad = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, arrayCiudad);
+        dropdownProvincia.setAdapter(AdaptadorCiudad);
 
         System.out.println("SPINNER SELECCIONADO"+dropdownTipoDoc.getOnItemSelectedListener());
     }
