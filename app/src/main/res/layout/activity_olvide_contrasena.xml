@@ -66,7 +66,7 @@
             android:layout_marginEnd="10dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtInputUsuario"
+                android:id="@+id/txtInputEmail"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,58 +88,35 @@
             android:layout_below="@+id/linearParte3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp">
-            <LinearLayout
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnIniciarSesion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearParte4"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/ic_login"
+                android:drawableTint="#fff"
+                android:fontFamily="@font/poppins_medium"
+                android:onClick="CargarFormulario"
+                android:text="ENVIAR" />
 
-                <Button
-                    android:id="@+id/btnIniciarSesion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="55dp"
-                    android:layout_marginTop="5dp"
-                    android:drawableEnd="@drawable/ic_login"
-                    android:drawableTint="#fff"
-                    android:fontFamily="@font/poppins_medium"
-                    android:onClick="CargarFormulario"
-                    android:text="ENVIAR" />
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="match_parent"/>
 
-                <Button
-                    android:id="@+id/btnRegresar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="5dp"
-                    android:drawableEnd="@drawable/ic_volver_atras"
-                    android:fontFamily="@font/san_francisco"
-                    android:onClick="RegresarAMain"
-                    android:text="Regresar"
-                    android:textColor="@color/white" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btnRegresar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="RegresarAMain"
+                android:text="Regresar" />
 
         </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:id="@+id/linearParte5"
-            android:layout_below="@+id/linearParte4"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"/>
 
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_below="@+id/linearParte5"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

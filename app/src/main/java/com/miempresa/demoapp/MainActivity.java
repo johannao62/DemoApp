@@ -13,24 +13,50 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.miempresa.demoapp.database.UDataBase;
+import com.miempresa.demoapp.database.dao.UserDao;
+import com.miempresa.demoapp.database.entity.User;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText usuario;
     private EditText clave;
     private EditText edtMail, edtPassword;
-    private String claveCorrecta = "estaEs";
-    private String usuarioCorrecto = "Jo@gmail.com";
+    private final String claveCorrecta = "estaEs";
+    private final String usuarioCorrecto = "Jo@gmail.com";
     private TextView txtNuevoUsuario, txtOlvideContrasena;
 
     private TextInputLayout txtInputUsuario, txtInputPassword;
     String mensajeOk = "Excelente, Haz Iniciado Sesión";
     String mensajeError = "Error: Usuario o contraseña Incorrectos";
 
+    //DB
+    UDataBase uDataBase;
+    UserDao userDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Se crea la instancia a la base de datos
+        uDataBase = UDataBase.getInstance(this);
+        userDao = uDataBase.getAllDao();
+
+        userDao.insertUser(new User(usuarioCorrecto, claveCorrecta,"Usuario principal","","", "", "", "", false));
+
+        //Si ya hay una sesión activa se pasa directamente a la siguiente pantalla
+        User user = userDao.verifySesion();
+        if(user != null) {
+            //Se declara cual es la activity (pantalla) qué será invoncada.
+            Intent intAgenda = new Intent(this,Agenda.class);
+            //Se transfiere un dato hacia la activity destino
+            intAgenda.putExtra("usuario",user.getUserEmail());
+            //Se invoca la Activity destino
+            startActivity(intAgenda);
+            //Se finaliza la actividad actual
+            finish();
+        }
 
         //Se capturan los objetos de la interfaz gráfica
         usuario = findViewById(R.id.edtMail);
@@ -50,9 +76,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (validar()){
             //Mediante el método validar se revisa que los campos hayan sido ingresados correctamente.
-            if (usuario.getText().toString().equalsIgnoreCase(usuarioCorrecto)
-                    && clave.getText().toString().equals(claveCorrecta)
-            ){
+            //if (usuario.getText().toString().equalsIgnoreCase(usuarioCorrecto)
+            //        && clave.getText().toString().equals(claveCorrecta)
+            //){
+
+            //Mediante la base de datos se valida las credenciales del usuario
+            User user = userDao.verifyUserLogin(usuario.getText().toString(), clave.getText().toString());
+            if(user != null) {
+                //Se actualiza la sesion del usuario
+                userDao.updateSesion(usuario.getText().toString(), true);
+
                 //Se muestra un mensaje emergente de bienvenida
                 //Toast.makeText(this, "Bienvenido a la My App Android", Toast.LENGTH_LONG).show();
                 toastCorrecto(mensajeOk);
@@ -65,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //Se invoca la Activity destino
                 startActivity(intAgenda);
+
+                //Se finaliza la actividad actual
+                finish();
 
             } else {
                 //Toast.makeText(this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();

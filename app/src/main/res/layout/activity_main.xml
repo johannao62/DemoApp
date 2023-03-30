@@ -124,7 +124,7 @@
             android:id="@+id/linearParte5"
             android:layout_below="@+id/linearParte4"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="32dp"
             android:layout_height="wrap_content">
 
             <TextView
@@ -145,7 +145,7 @@
             android:orientation="horizontal"
             android:layout_below="@+id/linearParte5"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:layout_height="wrap_content">
 
             <TextView

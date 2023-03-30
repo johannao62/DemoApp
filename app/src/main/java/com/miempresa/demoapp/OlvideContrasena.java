@@ -8,27 +8,39 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.miempresa.demoapp.database.UDataBase;
+import com.miempresa.demoapp.database.dao.UserDao;
+import com.miempresa.demoapp.database.entity.User;
 
 public class OlvideContrasena extends AppCompatActivity {
 
-    private EditText edtEmailUser;
-    private TextInputLayout txtInputEmailUser;
+    private TextInputLayout txtInputEmail;
 
+    private EditText edtMail;
 
+    String PASS_TMP = "123456";
+
+    //DB
+    UDataBase uDataBase;
+    UserDao userDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_olvide_contrasena);
 
-        //Se capturan los objetos de la interfaz gráfica
-        edtEmailUser = findViewById(R.id.edtMail);
-        txtInputEmailUser = findViewById(R.id.txtInputUsuario);
+        //Se crea la instancia a la base de datos
+        uDataBase = UDataBase.getInstance(this);
+        userDao = uDataBase.getAllDao();
+
+        edtMail = findViewById(R.id.edtMail);
+        txtInputEmail = findViewById(R.id.txtInputEmail);
     }
 
     public void CargarFormulario(View v){
@@ -36,7 +48,7 @@ public class OlvideContrasena extends AppCompatActivity {
         System.out.println("Se ingresa a cargar formulario");
 
         if (validar()){
-            toastCorrecto("Se han ingresado los datos");
+            toastCorrecto("Su contraseña temporal es: " + PASS_TMP);
 
         }else{
             toastError("Debe llenar la info");
@@ -47,21 +59,29 @@ public class OlvideContrasena extends AppCompatActivity {
     private boolean validar() {
         boolean retorno = true;
         String correo;
-        correo = edtEmailUser.getText().toString();
+
+        correo = edtMail.getText().toString();
 
         if (correo.isEmpty()) {
-            txtInputEmailUser.setError("Ingresar correo electrónico");
+            txtInputEmail.setError("Ingresar correo electrónico");
             retorno = false;
         } else {
-            txtInputEmailUser.setErrorEnabled(false);
+            txtInputEmail.setErrorEnabled(false);
+        }
+
+        if(retorno) {
+            //Se registra el usuario
+            userDao.updatePassByUserEmail(correo, PASS_TMP);
         }
 
         return retorno;
     }
+
     public void RegresarAMain(View v){
         //Se declara la pantalla o Activity, que se va a invocar:
-        Intent intActPpal = new Intent(this, MainActivity.class); //Se invoca la actividad
-        startActivity(intActPpal);
+        //Intent intActPpal = new Intent(this, MainActivity.class); //Se invoca la actividad
+        //startActivity(intActPpal);
+        finish();
 
     }
 

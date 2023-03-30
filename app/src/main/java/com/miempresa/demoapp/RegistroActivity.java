@@ -15,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.miempresa.demoapp.database.UDataBase;
+import com.miempresa.demoapp.database.dao.UserDao;
+import com.miempresa.demoapp.database.entity.User;
 
 public class RegistroActivity extends AppCompatActivity {
 
@@ -25,11 +28,19 @@ public class RegistroActivity extends AppCompatActivity {
             txtInputTipoDoc, txtInputNumeroDocU, txtInputDepartamento, txtInputProvincia,
             txtInputDistrito, txtInputTelefonoU, txtInputDireccionU, txtInputEmailUser, txtInputPasswordUser;
 
+    //DB
+    UDataBase uDataBase;
+    UserDao userDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+
+        //Se crea la instancia a la base de datos
+        uDataBase = UDataBase.getInstance(this);
+        userDao = uDataBase.getAllDao();
+
         //Se capturan los objetos de la interfaz gráfica
         edtNameUser = findViewById(R.id.edtNameUser);
         edtNumDocU = findViewById(R.id.edtNumDocU);
@@ -89,8 +100,9 @@ public class RegistroActivity extends AppCompatActivity {
 
     public void RegresarAMain(View v){
         //Se declara la pantalla o Activity, que se va a invocar:
-        Intent intActPpal = new Intent(this, MainActivity.class); //Se invoca la actividad
-        startActivity(intActPpal);
+        //Intent intActPpal = new Intent(this, MainActivity.class); //Se invoca la actividad
+        //startActivity(intActPpal);
+        finish();
 
     }
 
@@ -100,6 +112,15 @@ public class RegistroActivity extends AppCompatActivity {
 
         if (validar()){
             toastCorrecto("Se han ingresado los datos");
+
+            //Se declara cual es la activity (pantalla) qué será invoncada.
+            Intent intAgenda = new Intent(this,Agenda.class);
+            //Se transfiere un dato hacia la activity destino
+            intAgenda.putExtra("usuario",edtEmailUser.getText().toString());
+            //Se invoca la Activity destino
+            startActivity(intAgenda);
+            //Se finaliza la actividad actual
+            finish();
 
         }else{
             toastError("Debe llenar la info");
@@ -174,6 +195,13 @@ public class RegistroActivity extends AppCompatActivity {
             retorno = false;
         } else {
             txtInputPasswordUser.setErrorEnabled(false);
+        }
+
+        if(retorno) {
+            //Se registra el usuario
+            userDao.insertUser(new User(correo, clave,nombres,dropTipoDoc,numDoc, dropDepartamento, dropProvincia, direccion, false));
+            //Se actualiza la sesion del usuario
+            userDao.updateSesion(correo, true);
         }
 
         return retorno;
